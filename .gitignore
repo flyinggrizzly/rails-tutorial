@@ -1,0 +1,6 @@
+# The projects have their own repos
+hello_app/*
+
+
+# Stupid mac files
+.DS_Store

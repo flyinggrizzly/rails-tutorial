@@ -1,0 +1,23 @@
+# Rails directory structure
+
+- `app/` - Core code: models, views, controllers, helpers
+  - `app/assets/` - App assets (CSS, JS, images, etc)
+- `bin/` - any executables exposed
+- `config/` - App configuration
+- `db/` - Database files
+- `doc/` - Application docs
+- `lib/` Library modules @todo('what is the diff between `lib` files and core code?')
+  - `lib/assets/` - As `app/assets/`, but library files
+- `log/` - Application logs
+- `public/` - Externally accessible files, like error pages or other static files
+- `bin/rails` - Rails executable for generating code, starting console sessions, or starting a local server
+- `test/` - All your tests. Maybe most important directory?
+- `tmp/` - Temporary files go here
+- `vendor/` - As `app/` and `lib/`, but for 3rd party stuff
+  - `vendor/assets/` - ibid
+- `README.md` - it's in the name
+- `Rakefile` - Utility tasks exposed by the `rake` command
+- `Gemfile` - Gems required for the app
+- `Gemfile.lock` - A list of gems used to ensure that all copies of the app use the same versions (if the `Gemfile` is the shopping list, this is your receipt)
+- `config.ru` - Config file for [Rack middleware](http://rack.github.io/) @todo('look up and research Rack')
+- `.gitignore` - files to ignore with git
