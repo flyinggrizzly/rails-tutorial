@@ -2,26 +2,28 @@
 
 Separates code and data from the way they are displayed.
 
-## Controllers and routers
+**Models** are your content and interaction models (a User will need to have a list of all instances of the class, detailed views for each instance/user, the ability to add, modify, delete, etc).
 
-The controllers determine what information is returned to the browser. But the routers (`config/routes.rb`) help determine which controllers/methods to use based on what the browser has requested.
+**Views** are template HTML/erb files into which information we want to present to the user is interpolated. They're also ruby files, so they can do some work on their own (this shouldn't be extensive. Separation of concerns and all that).
 
-A basic route would look like this:
+**Controllers** figure out which model is being called, which methods to use, and which views to fill out. This works hand in hand with your `config/routes.rb` file, which determines the type of request, and hands it to the right controller to finish the work.
 
+## Example
+
+Browser requests `/users`
+
+This hits `config/routes.rb`, which sees that there was a `GET` request for `'/users'`. It checks itself and finds
+
+```ruby
+get '/users', to: 'users#index'
 ```
-get '/goodbye', to: 'application#goodbye'
-```
 
-where `get` is the HTTP method being received, `/goodbye` is the resource requested/updated, and in `application#goodbye` `application` references *which* controller file (named `application_controller.rb` or `foo_controller.rb` if referenced by `foo#goodbye`), and `goodbye` denotes the method to use within that controller. (whoof. that was a sentence.)
+which tells it when you see a `GET` request for `'/users'`, send that to the `user_controller.rb` file and use the method `index`, which will probably show a list/index of all users in the system.
 
-*[More on routing](http://guides.rubyonrails.org/routing.html)* @todo('read up on Rails routing')
+It hands this over to the controller, which queries the databse (or whatever) for the user list, and then grabs the view it needs for this.
 
-### Redirecting
+The view receives all the information, gets compiled, and the controller hands this back to the browser.
 
-You can redirect in `config/routes.rb` too. It looks like this:
+## Notes
 
-```
-get '/redirect-me', to: redirect('/new-destination')
-
-get '/new-destination', to: 'application#new_destination_method'
-```
+Not all methods in a controller will render out a view--some of them will be called by other methods, and their job may be database related, or whatever.6
